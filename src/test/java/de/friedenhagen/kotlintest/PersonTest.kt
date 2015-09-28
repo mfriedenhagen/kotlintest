@@ -1,5 +1,6 @@
 package de.friedenhagen.kotlintest
 
+import org.junit.Assert
 import org.junit.Test
 
 class PersonTest {
@@ -7,12 +8,12 @@ class PersonTest {
     @Test
     fun testIt() {
         val person = Person("John", "Doe")
-        assert(person.age == 0, {"Should be 0 years old by default"})
+        Assert.assertEquals(0, person.age)
     }
 
     @Test
     fun testItOldEnough() {
         val person = Person("John", "Doe", age = 18)
-        assert(person.isOfAge(), {"Should be at least 18"})
+        Assert.assertTrue("Should be at least ${person.AGE_LIMIT}, is ${person.age}", person.isOfAge())
     }
 }
