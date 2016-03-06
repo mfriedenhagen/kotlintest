@@ -18,7 +18,7 @@
         <oneandone.java.source>1.8</oneandone.java.source>
         <oneandone.java.target>1.8</oneandone.java.target>
         <oneandone.java.docversion>8</oneandone.java.docversion>
-        <kotlin.version>0.13.1514</kotlin.version>
+        <kotlin.version>1.0.0</kotlin.version>
     </properties>
 
     <dependencyManagement>
@@ -50,14 +50,14 @@
                     <version>${kotlin.version}</version>
                     <executions>
                         <execution>
-                            <id>compile</id>
+                            <id>default-compile</id>
                             <phase>compile</phase>
                             <goals>
                                 <goal>compile</goal>
                             </goals>
                         </execution>
                         <execution>
-                            <id>test-compile</id>
+                            <id>default-test-compile</id>
                             <phase>test-compile</phase>
                             <goals>
                                 <goal>test-compile</goal>
