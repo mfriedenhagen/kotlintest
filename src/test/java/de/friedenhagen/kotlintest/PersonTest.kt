@@ -16,4 +16,15 @@ class PersonTest {
         val person = Person("John", "Doe", age = 18)
         Assert.assertTrue("Should be at least ${person.AGE_LIMIT}, is ${person.age}", person.isOfAge())
     }
+
+    @Test
+    fun testToString() {
+        Assert.assertEquals("Person(firstName=John, name=Doe, age=18)", Person("John", "Doe", age = 18).toString())
+    }
+
+    @Test
+    fun testEquals() {
+        val person = Person("John", "Doe", age = 18)
+        Assert.assertEquals(person, Person("John", "Doe", age = 18))
+    }
 }
