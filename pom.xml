@@ -7,7 +7,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.5.7</version>
+        <version>1.5.9</version>
     </parent>
 
     <groupId>de.friedenhagen</groupId>
@@ -28,12 +28,21 @@
                 <artifactId>kotlin-stdlib</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.17</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
