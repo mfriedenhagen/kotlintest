@@ -33,6 +33,12 @@
                 <artifactId>snakeyaml</artifactId>
                 <version>1.17</version>
             </dependency>
+            <dependency>
+                <groupId>org.jetbrains.spek</groupId>
+                <artifactId>spek</artifactId>
+                <version>0.1.199</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -48,11 +54,31 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.spek</groupId>
+            <artifactId>spek</artifactId>
+        </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>jetbrains-all</id>
+            <url>http://repository.jetbrains.com/spek/</url>
+        </repository>
+    </repositories>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <requireNoRepositories>
+                                <allowedRepositories>jetbrains-all</allowedRepositories>
+                            </requireNoRepositories>
+                        </rules>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <artifactId>kotlin-maven-plugin</artifactId>
                     <groupId>org.jetbrains.kotlin</groupId>
