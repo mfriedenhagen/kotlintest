@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
     when (message) {
         is LinkedHashMap<*, *> -> println(message)
         is Iterable<*> -> message.forEach { println(it) }
-        else -> println(message.javaClass)
+        else -> throw IllegalArgumentException("Could not parse '$filename', not a YAML file.")
     }
 }
 
