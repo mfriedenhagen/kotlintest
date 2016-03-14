@@ -61,7 +61,7 @@
     </dependencies>
     <repositories>
         <repository>
-            <id>jetbrains-all</id>
+            <id>jetbrains-spek</id>
             <url>http://repository.jetbrains.com/spek/</url>
         </repository>
     </repositories>
@@ -74,7 +74,7 @@
                     <configuration>
                         <rules>
                             <requireNoRepositories>
-                                <allowedRepositories>jetbrains-all</allowedRepositories>
+                                <allowedRepositories>jetbrains-spek</allowedRepositories>
                             </requireNoRepositories>
                         </rules>
                     </configuration>
