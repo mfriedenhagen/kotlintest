@@ -5,7 +5,7 @@ import org.jetbrains.spek.api.shouldEqual
 import org.jetbrains.spek.api.shouldNotBeNull
 import kotlin.test.assertFailsWith
 
-class App1Test : Spek() {
+class AppTest : Spek() {
     init {
         given("the App gets a file with multiple documents") {
             val sut = App("src/test/resources/multiple.yml")
@@ -22,11 +22,6 @@ class App1Test : Spek() {
 
             }
         }
-    }
-}
-
-class App2Test : Spek() {
-    init {
         given("the App gets a file with one document") {
             val sut = App("src/test/resources/single.yml")
             on("parsing the file") {
@@ -37,10 +32,6 @@ class App2Test : Spek() {
 
             }
         }
-    }
-}
-class App3Test : Spek() {
-    init {
         given("the App gets a non YAML file") {
             val sut = App("pom.xml")
             on("parsing the file") {
