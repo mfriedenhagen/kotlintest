@@ -2,7 +2,8 @@ package de.friedenhagen.kotlintest
 
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.shouldEqual
-import org.jetbrains.spek.api.shouldNotBeNull
+import java.util.LinkedHashMap
+import java.util.ArrayList
 import kotlin.test.assertFailsWith
 
 class AppTest : Spek() {
@@ -17,7 +18,7 @@ class AppTest : Spek() {
             on("parsing the file") {
                 val message = sut.create()
                 it("should not create an exception") {
-                    shouldNotBeNull(message)
+                    shouldEqual(2, (message as ArrayList<*>).size)
                 }
 
             }
@@ -27,7 +28,9 @@ class AppTest : Spek() {
             on("parsing the file") {
                 val message = sut.create()
                 it("should not create an exception") {
-                    shouldNotBeNull(message)
+                    val linkedHashMap = message as LinkedHashMap<*, *>
+                    shouldEqual(8, linkedHashMap.size)
+                    shouldEqual(34843, linkedHashMap["invoice"])
                 }
 
             }
