@@ -17,7 +17,7 @@ class AppTest : Spek() {
             }
             on("parsing the file") {
                 val message = sut.create()
-                it("should not create an exception") {
+                it("should return an ArrayList") {
                     shouldEqual(2, (message as ArrayList<*>).size)
                 }
 
@@ -27,7 +27,7 @@ class AppTest : Spek() {
             val sut = App("src/test/resources/single.yml")
             on("parsing the file") {
                 val message = sut.create()
-                it("should not create an exception") {
+                it("should return a LinkedHashMap") {
                     val linkedHashMap = message as LinkedHashMap<*, *>
                     shouldEqual(8, linkedHashMap.size)
                     shouldEqual(34843, linkedHashMap["invoice"])
