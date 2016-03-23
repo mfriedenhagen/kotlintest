@@ -1,9 +1,11 @@
 package de.friedenhagen.kotlintest
 
+import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
 import java.io.FileInputStream
-import java.util.*
+import java.util.LinkedHashMap
+
 
 class App(val filename: String) {
     fun create(): Any {
@@ -26,7 +28,7 @@ class App(val filename: String) {
 }
 fun main(args: Array<String>) {
     val filename: String = if (args.size > 0) args[0] else "src/test/resources/foo.yml"
-    println(App(filename).create())
+    LoggerFactory.getLogger(App::class.java).info("{}", App(filename).create())
 }
 
 
