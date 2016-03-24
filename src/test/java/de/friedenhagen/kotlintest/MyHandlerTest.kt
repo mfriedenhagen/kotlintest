@@ -12,22 +12,22 @@ import java.net.URI
 
 class MyHandlerTest : Spek() {
     init {
-        given("We recieve a GET request") {
+        given("we recieve a GET request") {
             val exchange = createHttpExchange(ByteInputStream())
             `when`(exchange.requestMethod).thenReturn("GET")
             val sut = MyHandler()
-            on("handling the request") {
+            on("handling the GET request") {
                 sut.handle(exchange)
                 it("should return something") {
                     shouldEqual("OK, method=GET", exchange.responseBody.toString())
                 }
             }
         }
-        given("We recieve a POST request") {
+        given("we recieve a POST request") {
             val exchange = createHttpExchange(ByteInputStream())
             `when`(exchange.requestMethod).thenReturn("POST")
             val sut = MyHandler()
-            on("handling the request") {
+            on("handling the POST request") {
                 sut.handle(exchange)
                 it("should return something") {
                     shouldEqual("OK, method=POST", exchange.responseBody.toString())
@@ -35,7 +35,7 @@ class MyHandlerTest : Spek() {
                 }
             }
         }
-        given("We recieve an invalid request") {
+        given("we recieve an invalid request") {
             val exchange = createHttpExchange(ByteInputStream())
             `when`(exchange.requestMethod).thenReturn("OPTIONS")
             val sut = MyHandler()

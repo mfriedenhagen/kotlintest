@@ -19,6 +19,7 @@
         <oneandone.java.target>1.8</oneandone.java.target>
         <oneandone.java.docversion>8</oneandone.java.docversion>
         <kotlin.version>1.0.0</kotlin.version>
+        <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
     </properties>
 
     <dependencyManagement>

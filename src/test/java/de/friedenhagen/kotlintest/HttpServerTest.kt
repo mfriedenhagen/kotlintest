@@ -19,6 +19,7 @@ class HttpServerTest : Spek() {
                 it("should not be empty") {
                     shouldNotEqual("", text)
                 }
+                sut.stop(0)
             }
         }
     }
