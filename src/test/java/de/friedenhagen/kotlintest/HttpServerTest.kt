@@ -1,14 +1,10 @@
 package de.friedenhagen.kotlintest
 
-import com.sun.net.httpserver.HttpExchange
-import com.sun.net.httpserver.HttpHandler
 import com.sun.net.httpserver.HttpServer
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.shouldNotEqual
-import org.slf4j.LoggerFactory
 import java.net.InetSocketAddress
 import java.net.URL
-import java.util.concurrent.atomic.AtomicInteger
 
 class HttpServerTest : Spek() {
     init {

@@ -27,15 +27,16 @@ class MyHandler : HttpHandler {
                 it.reader()
             }
             val response = "OK, method=${method}".toByteArray(charset)
-            exchange.responseHeaders.add("Location", "/foo/${count.incrementAndGet()}")
+            exchange.responseHeaders.add("Location", "${exchange.requestURI.toASCIIString()}/${count.incrementAndGet()}")
             exchange.sendResponseHeaders(302, response.size.toLong())
             exchange.responseBody.use { it.write(response) }
         }
 
         fun invalidRequest() {
+            val response = "INVALID REQUEST, method=${method}".toByteArray(charset)
             exchange.requestBody.close()
-            exchange.sendResponseHeaders(400, -1)
-            exchange.responseBody.close()
+            exchange.sendResponseHeaders(400, response.size.toLong())
+            exchange.responseBody.use { it.write(response) }
         }
 
         when(method) {
