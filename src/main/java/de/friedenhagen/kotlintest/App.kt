@@ -1,9 +1,11 @@
 package de.friedenhagen.kotlintest
 
+import com.sun.net.httpserver.HttpServer
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
 import java.io.FileInputStream
+import java.net.InetSocketAddress
 import java.util.LinkedHashMap
 import java.util.logging.LogManager
 
@@ -30,13 +32,24 @@ class App(val filename: String) {
 }
 
 fun main(args: Array<String>) {
+    val logger = LoggerFactory.getLogger(App::class.java)
     val logFile: String? = System.getProperty("java.util.logging.config.file")
     if (logFile == null) {
         LogManager.getLogManager().readConfiguration(
                 App::class.java.classLoader.getResourceAsStream("logging.properties"));
+        logger.info("Read internal logging.properties")
     }
-    val filename: String = if (args.size > 0) args[0] else "src/test/resources/single.yml"
-    LoggerFactory.getLogger(App::class.java).info("{}", App(filename).create())
+    val httpServer = HttpServer.create(InetSocketAddress(8080), 0)
+    httpServer.createContext("/foo", MyHandler())
+    httpServer.executor = null
+    httpServer.start()
+    logger.info("HttpServer started")
+    try {
+        while(true) Thread.sleep(1000)
+    } finally {
+        httpServer.stop(0)
+        logger.info("HttpServer stopped")
+    }
 }
 
 

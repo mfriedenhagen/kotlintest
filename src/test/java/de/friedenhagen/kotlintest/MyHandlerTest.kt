@@ -23,6 +23,17 @@ class MyHandlerTest : Spek() {
                 }
             }
         }
+        given("we recieve a HEAD request") {
+            val exchange = createHttpExchange(ByteInputStream())
+            `when`(exchange.requestMethod).thenReturn("HEAD")
+            val sut = MyHandler()
+            on("handling the HEAD request") {
+                sut.handle(exchange)
+                it("should return nothing") {
+                    shouldEqual("", exchange.responseBody.toString())
+                }
+            }
+        }
         given("we recieve a POST request") {
             val exchange = createHttpExchange(ByteInputStream())
             `when`(exchange.requestMethod).thenReturn("POST")

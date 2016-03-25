@@ -20,6 +20,7 @@ class MyHandler : HttpHandler {
             exchange.requestBody.close()
             exchange.sendResponseHeaders(200, response.size.toLong())
             exchange.responseBody.use { it.write(response) }
+            exchange.close()
         }
 
         fun post() {
@@ -30,6 +31,12 @@ class MyHandler : HttpHandler {
             exchange.responseHeaders.add("Location", "${exchange.requestURI.toASCIIString()}/${count.incrementAndGet()}")
             exchange.sendResponseHeaders(302, response.size.toLong())
             exchange.responseBody.use { it.write(response) }
+            exchange.close()
+        }
+
+        fun head() {
+            exchange.sendResponseHeaders(200, 0)
+            exchange.close()
         }
 
         fun invalidRequest() {
@@ -37,11 +44,13 @@ class MyHandler : HttpHandler {
             exchange.requestBody.close()
             exchange.sendResponseHeaders(400, response.size.toLong())
             exchange.responseBody.use { it.write(response) }
+            exchange.close()
         }
 
         when(method) {
             "GET" -> get()
             "POST" -> post()
+            "HEAD" -> head()
             else -> invalidRequest()
         }
         exchange.close()
