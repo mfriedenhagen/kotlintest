@@ -5,6 +5,7 @@ import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
 import java.io.FileInputStream
 import java.util.LinkedHashMap
+import java.util.logging.LogManager
 
 
 class App(val filename: String) {
@@ -16,6 +17,7 @@ class App(val filename: String) {
             else -> throw IllegalArgumentException("Could not parse '$filename', not a YAML file.")
         }
     }
+
     private fun parse(): Any {
         val yamlParser = Yaml()
         try {
@@ -26,8 +28,14 @@ class App(val filename: String) {
     }
 
 }
+
 fun main(args: Array<String>) {
-    val filename: String = if (args.size > 0) args[0] else "src/test/resources/foo.yml"
+    val logFile: String? = System.getProperty("java.util.logging.config.file")
+    if (logFile == null) {
+        LogManager.getLogManager().readConfiguration(
+                App::class.java.classLoader.getResourceAsStream("logging.properties"));
+    }
+    val filename: String = if (args.size > 0) args[0] else "src/test/resources/single.yml"
     LoggerFactory.getLogger(App::class.java).info("{}", App(filename).create())
 }
 
