@@ -1,6 +1,6 @@
 package de.friedenhagen.kotlintest
 
-import com.sun.net.httpserver.HttpServer
+import com.sun.net.httpserver.*
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
@@ -31,6 +31,22 @@ class App(val filename: String) {
 
 }
 
+class NonGETAuthenticator : BasicAuthenticator("REALM") {
+
+    override fun authenticate(exchange: HttpExchange) : Result {
+        if (exchange.requestMethod.equals("GET")) {
+            return Authenticator.Success(HttpPrincipal("ANONYMOUS", realm))
+        } else {
+            return super.authenticate(exchange)
+        }
+    }
+
+    override fun checkCredentials(user: String?, password: String?): Boolean {
+        return "me".equals(user) && "p".equals(password)
+    }
+
+}
+
 fun main(args: Array<String>) {
     val logger = LoggerFactory.getLogger(App::class.java)
     val logFile: String? = System.getProperty("java.util.logging.config.file")
@@ -40,7 +56,8 @@ fun main(args: Array<String>) {
         logger.info("Read internal logging.properties")
     }
     val httpServer = HttpServer.create(InetSocketAddress(8080), 0)
-    httpServer.createContext("/foo", MyHandler())
+    val context = httpServer.createContext("/foo", MyHandler())
+    context.authenticator = NonGETAuthenticator()
     httpServer.executor = null
     httpServer.start()
     logger.info("HttpServer started")
