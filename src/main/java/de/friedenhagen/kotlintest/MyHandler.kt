@@ -35,7 +35,7 @@ class MyHandler : HttpHandler {
         }
 
         fun head() {
-            exchange.sendResponseHeaders(200, 0)
+            exchange.sendResponseHeaders(200, -1)
             exchange.close()
         }
 
