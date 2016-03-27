@@ -1,12 +1,12 @@
 package de.friedenhagen.kotlintest
 
-import com.sun.net.httpserver.*
+import com.sun.net.httpserver.HttpServer
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
 import java.io.FileInputStream
 import java.net.InetSocketAddress
-import java.util.LinkedHashMap
+import java.util.*
 import java.util.logging.LogManager
 
 
@@ -27,22 +27,6 @@ class App(val filename: String) {
         } catch (e: ComposerException) {
             return FileInputStream(filename).use { yamlParser.loadAll(it).toList() }
         }
-    }
-
-}
-
-class NonGETAuthenticator : BasicAuthenticator("REALM") {
-
-    override fun authenticate(exchange: HttpExchange) : Result {
-        if (exchange.requestMethod.equals("GET")) {
-            return Authenticator.Success(HttpPrincipal("ANONYMOUS", realm))
-        } else {
-            return super.authenticate(exchange)
-        }
-    }
-
-    override fun checkCredentials(user: String?, password: String?): Boolean {
-        return "me".equals(user) && "p".equals(password)
     }
 
 }
