@@ -1,5 +1,6 @@
 package de.friedenhagen.kotlintest
 
+import com.sun.net.httpserver.Filter
 import com.sun.net.httpserver.HttpServer
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
@@ -42,6 +43,7 @@ fun main(args: Array<String>) {
     val httpServer = HttpServer.create(InetSocketAddress(8080), 0)
     val context = httpServer.createContext("/foo", MyHandler())
     context.authenticator = NonGETAuthenticator()
+    context.filters.add(LoggingFilter())
     httpServer.executor = null
     httpServer.start()
     logger.info("HttpServer started")
