@@ -9,13 +9,13 @@ import java.net.URL
 class HttpServerTest : Spek() {
     init {
         given("The HttpServer did start") {
-            val sut = HttpServer.create(InetSocketAddress(8080), 0)
+            val sut = HttpServer.create(InetSocketAddress(8090), 0)
             sut.createContext("/foo", MyHandler())
             sut.executor = null
             sut.start()
 //            while(true) Thread.sleep(1000)
             on("querying the /foo context") {
-                val text = URL("http://127.0.0.1:8080/foo").readText(charset("UTF-8"))
+                val text = URL("http://127.0.0.1:8090/foo").readText(charset("UTF-8"))
                 it("should not be empty") {
                     shouldNotEqual("", text)
                 }
