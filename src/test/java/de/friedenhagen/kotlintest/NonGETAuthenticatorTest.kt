@@ -3,12 +3,12 @@ package de.friedenhagen.kotlintest
 import com.sun.net.httpserver.Authenticator
 import com.sun.net.httpserver.Headers
 import com.sun.net.httpserver.HttpExchange
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class NonGETAuthenticatorTest {
 
