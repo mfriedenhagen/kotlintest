@@ -18,8 +18,9 @@
         <oneandone.java.source>1.8</oneandone.java.source>
         <oneandone.java.target>1.8</oneandone.java.target>
         <oneandone.java.docversion>8</oneandone.java.docversion>
-        <kotlin.version>1.0.0</kotlin.version>
+        <kotlin.version>1.0.1-2</kotlin.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
+        <spek.version>1.0.9</spek.version>
     </properties>
 
     <dependencyManagement>
@@ -30,14 +31,30 @@
                 <version>${kotlin.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-reflect</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-runtime</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>
                 <version>1.17</version>
             </dependency>
             <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test</artifactId>
+                <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.jetbrains.spek</groupId>
                 <artifactId>spek</artifactId>
-                <version>0.1.199</version>
+                <version>${spek.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -68,10 +85,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.spek</groupId>
             <artifactId>spek</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

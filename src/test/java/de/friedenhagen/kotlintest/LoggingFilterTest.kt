@@ -3,12 +3,12 @@ package de.friedenhagen.kotlintest
 import com.sun.net.httpserver.Filter
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
-import org.junit.Test
 import org.junit.Assert.assertEquals
-import org.mockito.Mockito.`mock`
+import org.junit.Test
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
 import java.net.URI
-import java.util.ArrayList
+import java.util.*
 
 class LoggingFilterTest {
 
