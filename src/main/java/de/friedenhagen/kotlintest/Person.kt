@@ -5,5 +5,5 @@ data class Person(val firstName: String, val name: String, val age:Int) {
 
     val AGE_LIMIT: Int = 18
 
-    fun isOfAge():Boolean = age >= AGE_LIMIT
+    fun isAdult():Boolean = age >= AGE_LIMIT
 }

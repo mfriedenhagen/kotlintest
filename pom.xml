@@ -125,6 +125,12 @@
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <configuration>
                         <rules>
+                            <banDuplicateClasses>
+                                <ignoreClasses>
+                                    <!-- both in stdlib and test -->
+                                    <ignoreClass>kotlin.internal.InlineOnly</ignoreClass>
+                                </ignoreClasses>
+                            </banDuplicateClasses>
                             <requireNoRepositories>
                                 <allowedRepositories>jetbrains-spek</allowedRepositories>
                             </requireNoRepositories>
