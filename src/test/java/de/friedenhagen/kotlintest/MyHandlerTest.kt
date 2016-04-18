@@ -3,7 +3,7 @@ package de.friedenhagen.kotlintest
 import com.sun.net.httpserver.Headers
 import com.sun.net.httpserver.HttpExchange
 import org.jetbrains.spek.api.Spek
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.`when` as mwhen
 import org.mockito.Mockito.mock
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -16,7 +16,7 @@ class MyHandlerTest : Spek({
 
     given("we recieve a GET request") {
         val exchange = createHttpExchange(emptyInputStream)
-        `when`(exchange.requestMethod).thenReturn("GET")
+        mwhen(exchange.requestMethod).thenReturn("GET")
         val sut = MyHandler()
         on("handling the GET request") {
             sut.handle(exchange)
@@ -27,7 +27,7 @@ class MyHandlerTest : Spek({
     }
     given("we recieve a HEAD request") {
         val exchange = createHttpExchange(emptyInputStream)
-        `when`(exchange.requestMethod).thenReturn("HEAD")
+        mwhen(exchange.requestMethod).thenReturn("HEAD")
         val sut = MyHandler()
         on("handling the HEAD request") {
             sut.handle(exchange)
@@ -42,7 +42,7 @@ class MyHandlerTest : Spek({
     ).forEach { postBody ->
         given("Foo") {
             val exchange = createHttpExchange(postBody)
-            `when`(exchange.requestMethod).thenReturn("POST")
+            mwhen(exchange.requestMethod).thenReturn("POST")
             val sut = MyHandler()
             on("handling the POST request with body ${postBody}") {
                 sut.handle(exchange)
@@ -56,7 +56,7 @@ class MyHandlerTest : Spek({
     }
     given("we recieve an invalid request") {
         val exchange = createHttpExchange(emptyInputStream)
-        `when`(exchange.requestMethod).thenReturn("OPTIONS")
+        mwhen(exchange.requestMethod).thenReturn("OPTIONS")
         val sut = MyHandler()
         on("handling the request") {
             sut.handle(exchange)
@@ -69,9 +69,9 @@ class MyHandlerTest : Spek({
 
 private fun createHttpExchange(inputStream: ByteArrayInputStream): HttpExchange {
     val exchange = `mock`(HttpExchange::class.java)
-    `when`(exchange.requestURI).thenReturn(URI.create("/foo"))
-    `when`(exchange.responseBody).thenReturn(ByteArrayOutputStream())
-    `when`(exchange.requestBody).thenReturn(inputStream)
-    `when`(exchange.responseHeaders).thenReturn(Headers())
+    mwhen(exchange.requestURI).thenReturn(URI.create("/foo"))
+    mwhen(exchange.responseBody).thenReturn(ByteArrayOutputStream())
+    mwhen(exchange.requestBody).thenReturn(inputStream)
+    mwhen(exchange.responseHeaders).thenReturn(Headers())
     return exchange
 }

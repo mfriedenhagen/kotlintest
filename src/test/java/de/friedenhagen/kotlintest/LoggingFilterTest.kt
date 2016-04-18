@@ -5,7 +5,7 @@ import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpHandler
 import org.jetbrains.spek.api.Spek
 
-import org.mockito.Mockito.`when`
+import org.mockito.Mockito.`when` as mwhen
 import org.mockito.Mockito.mock
 import java.net.URI
 import java.util.*
@@ -20,8 +20,8 @@ class LoggingFilterTest : Spek({
     describe("Should filter") {
         val mockedHandler = `mock`(HttpHandler::class.java)
         val mockedExchange = `mock`(HttpExchange::class.java)
-        `when`(mockedExchange.requestMethod).thenReturn("GET")
-        `when`(mockedExchange.requestURI).thenReturn(URI.create("/foo"))
+        mwhen(mockedExchange.requestMethod).thenReturn("GET")
+        mwhen(mockedExchange.requestURI).thenReturn(URI.create("/foo"))
         it("") {
             LoggingFilter().doFilter(mockedExchange, Filter.Chain(ArrayList(), mockedHandler))
         }
