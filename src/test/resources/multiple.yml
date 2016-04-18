@@ -30,7 +30,7 @@ comments:
 ---
 invoice: 34843
 date   : 2016-01-23
-billTo: &id001
+billTo: &id002
     given  : Chris
     family : Dumars
     address:
@@ -40,7 +40,7 @@ billTo: &id001
         city    : Royal Oak
         state   : MI
         postal  : 48046
-shipTo: *id001
+shipTo: *id002
 product:
     - sku         : BL394D
       quantity    : 4

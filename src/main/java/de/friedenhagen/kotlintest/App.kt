@@ -1,30 +1,30 @@
 package de.friedenhagen.kotlintest
 
-import com.sun.net.httpserver.Filter
 import com.sun.net.httpserver.HttpServer
+import de.friedenhagen.kotlintest.dto.Invoice
 import org.slf4j.LoggerFactory
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.composer.ComposerException
+import org.yaml.snakeyaml.constructor.Constructor
 import java.io.FileInputStream
 import java.net.InetSocketAddress
 import java.util.*
 import java.util.logging.LogManager
 
-
 class App(val filename: String) {
     fun create(): Any {
         val message = parse()
         when (message) {
-            is LinkedHashMap<*, *> -> return message
-            is Iterable<*> -> return message
+            is Invoice -> return message
+            is ArrayList<*> -> return message
             else -> throw IllegalArgumentException("Could not parse '$filename', not a YAML file.")
         }
     }
 
     private fun parse(): Any {
-        val yamlParser = Yaml()
+        val yamlParser = Yaml(Constructor(Invoice::class.java))
         try {
-            return FileInputStream(filename).use { yamlParser.load(it) }
+            return FileInputStream(filename).use { yamlParser.loadAs(it, Invoice::class.java) }
         } catch (e: ComposerException) {
             return FileInputStream(filename).use { yamlParser.loadAll(it).toList() }
         }
@@ -48,7 +48,7 @@ fun main(args: Array<String>) {
     httpServer.start()
     logger.info("HttpServer started")
     try {
-        while(true) Thread.sleep(1000)
+        while (true) Thread.sleep(1000)
     } finally {
         httpServer.stop(0)
         logger.info("HttpServer stopped")
