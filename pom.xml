@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -14,15 +12,34 @@
     <artifactId>kotlintest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <scm>
+        <connection>scm:git:https://github.com/mfriedenhagen/kotlintest.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/mfriedenhagen/kotlintest.git</developerConnection>
+        <url>https://github.com/mfriedenhagen/kotlintest</url>
+    </scm>
+
     <properties>
         <oneandone.java.source>1.8</oneandone.java.source>
         <oneandone.java.target>1.8</oneandone.java.target>
         <oneandone.java.docversion>8</oneandone.java.docversion>
-        <kotlin.version>1.0.1-2</kotlin.version>
+        <kotlin.version>1.0.2</kotlin.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
-        <spek.version>1.0.9</spek.version>
+        <spek.version>1.0.25</spek.version>
         <jackson.version>2.7.4</jackson.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jetbrains-spek</id>
+            <url>http://repository.jetbrains.com/spek/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
@@ -40,6 +57,11 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-runtime</artifactId>
                 <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mashape.unirest</groupId>
+                <artifactId>unirest-java</artifactId>
+                <version>1.4.9</version>
             </dependency>
             <dependency>
                 <groupId>org.yaml</groupId>
@@ -83,6 +105,10 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
         </dependency>
@@ -97,6 +123,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -139,12 +170,7 @@
             </exclusions>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>jetbrains-spek</id>
-            <url>http://repository.jetbrains.com/spek/</url>
-        </repository>
-    </repositories>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -161,13 +187,14 @@
                             </banDuplicateClasses>
                             <requireNoRepositories>
                                 <allowedRepositories>jetbrains-spek</allowedRepositories>
+                                <allowedPluginRepositories>jcenter</allowedPluginRepositories>
                             </requireNoRepositories>
                         </rules>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <artifactId>kotlin-maven-plugin</artifactId>
                     <groupId>org.jetbrains.kotlin</groupId>
+                    <artifactId>kotlin-maven-plugin</artifactId>
                     <version>${kotlin.version}</version>
                     <executions>
                         <execution>
@@ -189,6 +216,29 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.jfrog.buildinfo</groupId>
+                <artifactId>artifactory-maven-plugin</artifactId>
+                <version>2.4.1</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>default-publish</id>
+                        <goals>
+                            <goal>publish</goal>
+                        </goals>
+                        <configuration>
+                            <publisher>
+                                <contextUrl>http://docker-default:8081/artifactory/</contextUrl>
+                                <username>mirko</username>
+                                <password>123456</password>
+                                <repoKey>libs-release-local</repoKey>
+                                <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+                            </publisher>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -222,5 +272,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
