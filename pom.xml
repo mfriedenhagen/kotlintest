@@ -22,7 +22,7 @@
         <oneandone.java.source>1.8</oneandone.java.source>
         <oneandone.java.target>1.8</oneandone.java.target>
         <oneandone.java.docversion>8</oneandone.java.docversion>
-        <kotlin.version>1.0.2</kotlin.version>
+        <kotlin.version>1.0.2-1</kotlin.version>
         <maven.test.redirectTestOutputToFile>true</maven.test.redirectTestOutputToFile>
         <spek.version>1.0.25</spek.version>
         <jackson.version>2.7.4</jackson.version>
@@ -62,6 +62,12 @@
                 <groupId>com.mashape.unirest</groupId>
                 <artifactId>unirest-java</artifactId>
                 <version>1.4.9</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.yaml</groupId>
@@ -72,6 +78,12 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-test</artifactId>
                 <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.kotlintest</groupId>
+                <artifactId>kotlintest</artifactId>
+                <version>1.2.0</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -145,15 +157,20 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.kotlintest</groupId>
+            <artifactId>kotlintest</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.spek</groupId>
             <artifactId>spek</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
